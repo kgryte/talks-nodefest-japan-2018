@@ -254,16 +254,19 @@
 						How we train machine learning algorithms comes in two varieties.
 					</p>
 					<p>
-						The first is "batch". Batch training means training a model over an entire dataset. Many "big data" algorithms (e.g., such as those run on Hadoop) are of this variety.
+						The first is "batch". Batch training means training a model over an entire dataset. In order to accommodate new data, we must re-train our model by performing batch training over the entire updated data set.
 					</p>
 					<p>
-						The second is "incremental". Incremental training means training a model incrementally, one datum at a time. Such an approach allows one to continuously update a model as data arrives.
+						Many "big data"/map-reduce style algorithms (e.g., such as those run on Hadoop) are of this variety.
+					</p>
+					<p>
+						The second is "incremental". Incremental training means training a model incrementally, one datum at a time. Such an approach allows one to continuously update a model as data arrives, without having to re-train over the entire data set.
 					</p>
 					<p>
 						I should mention in passing that a third "variety" exists, commonly referred to as <strong>mini-batch</strong>.
 					</p>
 					<p>
-						Mini-batch is a hybrid of batch and incremental. In this variety, we buffer data and train models in small batches. The primary advantage of mini-batch is the ability to achieve some of the robustness of batch training with a close approximation of the immediacy (i.e., near real-time) of incremental training.
+						Mini-batch is a hybrid of batch and incremental. In this variety, we buffer data and train models in small batches. The primary advantage of mini-batch is the ability to achieve some of the robustness of batch training with a close approximation of the immediacy of incremental training (i.e., near real-time).
 					</p>
 				</aside>
 			</section>
@@ -273,7 +276,52 @@
 
 				<aside class="notes">
 					<p>
-						As the subject of this talk is <strong>real-time</strong> machine learning, the talk's focus is how we can develop, and use, incremental training machine learning methods in JavaScript.
+						Real-time machine learning.
+					</p>
+					<p>
+						For the purposes of this talk, I define real-time machine learning as the subset of machine learning algorithms which support incremental training. I.e., as a new datum arrives, I can update my model incrementally. Meaning, in order to generate a new prediction, I don't need to <strong>store</strong> and analyze <strong>all</strong> past prior events.
+					</p>
+					<p>
+						Commonly, perhaps due to marketing "speak", you'll see machine learning approaches and technologies labeled as "real-time". These approaches are more accurately described as "near real-time", in which, due to distributed computing strategies and/or parallelization, they allow for re-training and analysis to be done more quickly than traditional batch analysis.
+					</p>
+					<p>
+						My definition excludes these near real-time approaches.
+					</p>
+					<p>
+						This talk's focus is how we can develop, and use, incremental training machine learning methods in JavaScript.
+					</p>
+					<p>
+						Why this limited definition? Because I find incremental machine learning algorithms particularly compelling in JavaScript.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Why incremental algorithms?</h2>
+
+				<ul>
+					<li class="fragment">Privacy</li>
+					<li class="fragment">Low latency</li>
+					<li class="fragment">Offline</li>
+					<li class="fragment">Power efficient</li>
+					<li class="fragment">Direct access to sensor data</li>
+				</ul>
+
+				<aside class="notes">
+					<p>
+						Incremental machine learning algorithms allow for model training and prediction to happen concurrently. I don't need to separate these two aspects: training and prediction.
+					</p>
+					<p>
+						Why is this important? For the following reasons...
+					</p>
+					<p>
+						Privacy. Incremental machine learning algorithms allow data to stay on-device. For example, the Apple Watch has an API which allows you to access heart beat data. With incremental machine learning, I can train a model (i.e., learn a user's "normal" heart beat pattern) and then detect when a heart beat, or set of heart beats, no longer fits this pattern. In this scenario, I never have to send this data to remote servers.
+					</p>
+					<p>
+						Because I don't have to send data to remote servers, analysis has low latency, works offline, and can be more power efficient.
+					</p>
+					<p>
+						Finally, as analysis can occur on-device (or using newer buzzword terminology, at the "edge"), we have direct access to all device sensor data, which removes the need for often complex device data serialization and de-serialization logic.
 					</p>
 				</aside>
 			</section>
@@ -310,6 +358,43 @@
 					</p>
 					<p>
 						And finally, we have monitoring data, such as logs of failed HTTP/S requests, server errors, et cetera.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Use Cases</h2>
+
+				<ul>
+					<li class="fragment">Forecasting</li>
+					<li class="fragment">Anomalies</li>
+					<li class="fragment">Clustering</li>
+				</ul>
+
+				<aside class="notes">
+					<p>
+						What can real-time machine learning allow you to do?
+					</p>
+					<p>
+						We have already discussed one use case: forecasting (prediction). The naive model we formulated earlier which involved computing an average in order to forecast tomorrow's weather can be formulated as an incremental algorithm. Each day we can record the temperature, use that temperature to update our model, and, hopefully, make a better forecast for the next day.
+					</p>
+					<p>
+						For the UI interaction data we discussed in the previous slide, such as cursor movement and scrolling, we can generate a prediction as to what resource a user will most likely need next, allowing us to create apparently faster and more responsive UIs.
+					</p>
+					<p>
+						For example, a simple (regression) task could be to track cursor movement and, based on (x,y) coordinates over time, train a model to predict which button a user will click next, causing the desired resource to be fetched before a user actually clicks the button, thus leading to a more instantaneous experience.
+					</p>
+					<p>
+						Another classic use case is anomaly detection, such as detecting a malfunctioning system or credit card fraud. In this classification task, we want to detect when a datum, or set of datums, is different than the rest.
+					</p>
+					<p>
+						The sooner you are able to classify new data as anomalous, the sooner you can fix the problem.
+					</p>
+					<p>
+						A third use case is clustering, which is the process of assigning groups.
+					</p>
+					<p>
+						As an example, we could collect device performance metrics, such as CPU utilization and memory usage, and identify different application "states", such as resource intensive, idle, et cetera. The number of states and how frequently they are occupied could be informative for resource planning and optimization.
 					</p>
 				</aside>
 			</section>
