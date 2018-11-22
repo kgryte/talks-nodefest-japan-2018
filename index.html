@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Talk | Node Festival Japan, 2018 | Real-time Machine Learning in JavaScript</title>
+	<title>Talk | Node Festival Japan, 2018 | Real-Time Machine Learning in JavaScript</title>
 
 	<meta name="description" content="Real-time machine learning is a collection of statistical methods to obtain insights from continuous data streams. In this talk, I'll provide an overview of real-time machine learning algorithms and discuss how these algorithms can be implemented and used in JavaScript. I'll highlight why running these algorithms in JavaScript has several advantages compared to languages traditionally used for numerical computing, including the ability to perform client-side computations. I'll conclude by discussing best-practices and common pitfalls encountered when using machine learning algorithms within JavaScript environments.">
 	<meta name="author" content="Athan Reines">
@@ -48,6 +48,11 @@
 	<!-- Code syntax highlighting -->
 	<link rel="stylesheet" href="css/code/zenburn.css">
 
+	<!-- Equation rendering -->
+	<link rel="stylesheet" href="js/lib/katex/katex.css">
+	<script defer src="js/lib/katex/katex.min.js"></script>
+	<script defer src="js/lib/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
 	<!-- Printing and PDF exports -->
 	<script src="js/lib/reveal/pdf.js"></script>
 
@@ -68,7 +73,7 @@
 		<div class="slides">
 
 			<section id="title-slide" class="center">
-				<h1>Real-time Machine Learning in JavaScript</h1>
+				<h1>Real-Time Machine Learning in JavaScript</h1>
 
 				<aside class="notes">
 
@@ -88,11 +93,14 @@
 				<div>
 					<small><a href="https://github.com/kgryte"><i class="fa fa-github"></i> Athan Reines</a> | <a href="https://twitter.com/kgryte"><i class="fa fa-twitter"></i> @kgryte</a> | <a href="https://twitter.com/stdlibjs"><i class="fa fa-twitter"></i> @stdlibjs</a></small>
 				</div>
-				<!-- <div>
-					<a href="https://github.com/stdlib-js/stdlib"><img src="img/hex_sticker_black.svg" alt="stdlib" class="undecorated"></a>
-				</div> -->
 				<aside class="notes">
 
+				</aside>
+			</section>
+
+			<section class="center">
+				<aside class="notes">
+					(next slide)
 				</aside>
 			</section>
 
@@ -105,14 +113,17 @@
 					</ul>
 					<ol class="column column-8">
 						<li class="fragment">Intro</li>
-						<li class="fragment">TODO</li>
+						<li class="fragment">Motivation</li>
+						<li class="fragment">JavaScript</li>
+						<li class="fragment">Examples</li>
+						<li class="fragment">Tips and Tricks</li>
 						<li class="fragment">Conclusions</li>
 					</ol>
 				</div>
 
 				<aside class="notes">
 					<p>
-						This talk will ...
+						This talk will TODO...
 					</p>
 					<p>
 						If I move too quickly, this talk is on-line with notes so you can revisit during and after this conference.
@@ -122,7 +133,7 @@
 					</p>
 					<ul>
    						<li>
-   							First, I will ...
+   							First, I will TODO...
    						</li>
    						<li>
    							And finally, I will offer some conclusions and additional resources you can use to get started using JavaScript for real-time machine learning.
@@ -138,18 +149,168 @@
 			</section>
 
 			<section class="center">
-				<h2 class="no-text-transform">TODO</h2>
+				<h2 class="no-text-transform">Machine Learning</h2>
 
 				<aside class="notes">
 					<p>
-						TODO
+						Machine learning is applied mathematics and statistics and largely resides in the domain of computer science.
+					</p>
+					<p>
+						In the field of statistics, we focus on mathematical formulas, the derivation of robust estimators, and developing techniques for modeling problem domains.
+					</p>
+					<p>
+						In computer science, we focus less on mathematical purity and more on the practical aspects of writing algorithms which can run efficiently and with high performance and give us results which are "good enough".
+					</p>
+					<p>
+						The primary aim of machine learning is to find patterns in data, to find the proverbial signal in the noise.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Models</h2>
+
+				<aside class="notes">
+					<p>
+						To describe those patterns we want to find, we <em>formulate</em> and <em>train</em> <strong>models</strong>.
+					</p>
+					<p>
+						A model is a mathematical formulation summarizing the nature of, and describing the relationship between, data variables.
+					</p>
+					<p>
+						Models serve as the statistical foundation for machine learning.
+					</p>
+					<p>
+						In order for machine learning algorithms to find patterns in data, we must "train" (or "teach") machine learning algorithms as to what those patterns are.
+					</p>
+					<p>
+						In a sense, machine learning algorithms "learn" the models used to describe particular patterns. That learning often comes in the form of learning specific values of coefficients within an equation.
+					</p>
+					<p>
+						As an example...
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">What will be the temperature tomorrow?</h2>
+
+				<div class="row">
+					<p class="fragment column column-4" style="padding-top: 0.9em">
+						$$t_n = t_{n-1}$$
+					</p>
+					<p class="fragment column column-4">
+						$$t_n = \frac{1}{7} \sum_{i=n-7}^{n-1} t_i$$
+					</p>
+					<p class="fragment column column-4">
+						$$t_n = \frac{1}{W} \sum_{i=n-W}^{n-1} t_i$$
+					</p>
+				</div>
+
+				<aside class="notes">
+					<p>
+						...suppose we want to "predict" the temperature tomorrow. A naive approach we could use would be to predict that the temperature tomorrow is whatever the temperature is today.
+					</p>
+					<p>
+						Our naive approach can be expressed mathematically as t_n = t_{n-1}, which is a way of saying that, for a given day n, the temperature should equal the temperature of the previous day. This equation is our model.
+					</p>
+					<p>
+						However, we might, perhaps rightly, believe that this naive approach might not be as accurate as we would like due to day-to-day temperature variability (i.e., noise).
+					</p>
+					<p>
+						For example, an anomalous weather pattern may lead to a very warm day followed by a very cold day.
+					</p>
+					<p>
+						So, one possible refinement would be to predict that the temperature tomorrow is the average temperature of the past 7 days.
+					</p>
+					<p>
+						By taking the average, we will "smooth" out some of the day-to-day variability and hopefully have a more reliable estimate over the long term.
+					</p>
+					<p>
+						In other words, by using the average temperature of the previous 7 days to predict tomorrow's temperature, our predictions will be closer (i.e., have a smaller <strong>error</strong>), on average, to the actual temperature than had we used our naive model.
+					</p>
+					<p>
+						We can parameterize our model with the variable W which represents the number of days we want to average over.
+					</p>
+					<p>
+						In this example, the "model" is the mathematical formula describing the computation of the average temperature. That model is "trained" by giving the model data (e.g., the temperature for each of the past 7 days). In this case, the output of the trained model is a single value, which we then use to "predict" tomorrow's temperature.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Training Algorithms</h2>
+
+				<div class="row">
+					<ul class="column column-12">
+						<li class="fragment"><strong>Batch</strong>: build a model from a "batch" of data</li>
+						<li class="fragment"><strong>Incremental</strong>: continuously update a model as data arrives</li>
+						<li class="fragment"><strong>Mini-batch</strong>: hybrid of batch and incremental training.</li>
+					</ul>
+				</div>
+
+				<aside class="notes">
+					<p>
+						How we train machine learning algorithms comes in two varieties.
+					</p>
+					<p>
+						The first is "batch". Batch training means training a model over an entire dataset. Many "big data" algorithms (e.g., such as those run on Hadoop) are of this variety.
+					</p>
+					<p>
+						The second is "incremental". Incremental training means training a model incrementally, one datum at a time. Such an approach allows one to continuously update a model as data arrives.
+					</p>
+					<p>
+						I should mention in passing that a third "variety" exists, commonly referred to as <strong>mini-batch</strong>.
+					</p>
+					<p>
+						Mini-batch is a hybrid of batch and incremental. In this variety, we buffer data and train models in small batches. The primary advantage of mini-batch is the ability to achieve some of the robustness of batch training with a close approximation of the immediacy (i.e., near real-time) of incremental training.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Real-Time Machine Learning</h2>
+
+				<aside class="notes">
+					<p>
+						As the subject of this talk is <strong>real-time</strong> machine learning, the talk's focus is how we can develop, and use, incremental training machine learning methods in JavaScript.
 					</p>
 				</aside>
 			</section>
 
 			<section class="center">
 				<aside class="notes">
-					(next slide)
+					...to help motivate real-time machine learning use cases, let us consider real-world data streams...
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Example Data Streams</h2>
+
+				<ul>
+					<li class="fragment">Mouse/cursor movements</li>
+					<li class="fragment">Scrolling</li>
+					<li class="fragment">Clicks</li>
+					<li class="fragment">Sensors</li>
+					<li class="fragment">Monitoring</li>
+				</ul>
+
+				<aside class="notes">
+					<p>
+						In JavaScript environments, such as the web browser, we have data streams such as mouse and cursor movements. Each movement of a cursor generates a set of (x,y) coordinates.
+					</p>
+					<p>
+						Similarly, another data stream is scrolling.
+					</p>
+					<p>
+						Another data stream is clicks (or selecting a UI element).
+					</p>
+					<p>
+						In the web browser, on mobile devices, and in Node.js, we have access to sensor data, such as device orientation, temperature, and ambient lighting, which is being continuously recorded.
+					</p>
+					<p>
+						And finally, we have monitoring data, such as logs of failed HTTP/S requests, server errors, et cetera.
+					</p>
 				</aside>
 			</section>
 

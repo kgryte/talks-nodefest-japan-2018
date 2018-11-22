@@ -1,4 +1,4 @@
-# Real-time Machine Learning in JavaScript
+# Real-Time Machine Learning in JavaScript
 
 > Talk for [Node Festival Japan (2018)][nodefest-japan-2018].
 
