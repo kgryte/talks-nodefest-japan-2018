@@ -156,7 +156,7 @@
 						Machine learning is applied mathematics and statistics and largely resides in the domain of computer science.
 					</p>
 					<p>
-						In the field of statistics, we focus on mathematical formulas, the derivation of robust estimators, and developing techniques for modeling problem domains.
+						In the field of statistics, we focus on mathematical formulas, the derivation of robust estimators, and developing mathematical techniques for modeling problem domains.
 					</p>
 					<p>
 						In computer science, we focus less on mathematical purity and more on the practical aspects of writing algorithms which can run efficiently and with high performance and give us results which are "good enough".
@@ -266,7 +266,7 @@
 						I should mention in passing that a third "variety" exists, commonly referred to as <strong>mini-batch</strong>.
 					</p>
 					<p>
-						Mini-batch is a hybrid of batch and incremental. In this variety, we buffer data and train models in small batches. The primary advantage of mini-batch is the ability to achieve some of the robustness of batch training with a close approximation of the immediacy of incremental training (i.e., near real-time).
+						Mini-batch is a hybrid of batch and incremental. In this variety, we buffer data and train models in small batches. The primary motivation for mini-batch is the ability to achieve some of the robustness of batch training with a reasonably close approximation of the immediacy of incremental training (i.e., mini-batch can achieve "near real-time").
 					</p>
 				</aside>
 			</section>
@@ -276,7 +276,7 @@
 
 				<aside class="notes">
 					<p>
-						Real-time machine learning.
+						This brings us to real-time machine learning.
 					</p>
 					<p>
 						For the purposes of this talk, I define real-time machine learning as the subset of machine learning algorithms which support incremental training. I.e., as a new datum arrives, I can update my model incrementally. Meaning, in order to generate a new prediction, I don't need to <strong>store</strong> and analyze <strong>all</strong> past prior events.
@@ -309,6 +309,9 @@
 
 				<aside class="notes">
 					<p>
+						First, why are incremental algorithms exciting?
+					</p>
+					<p>
 						Incremental machine learning algorithms allow for model training and prediction to happen concurrently. I don't need to separate these two aspects: training and prediction.
 					</p>
 					<p>
@@ -328,7 +331,7 @@
 
 			<section class="center">
 				<aside class="notes">
-					...to help motivate real-time machine learning use cases, let us consider real-world data streams...
+					To help motivate real-time machine learning use cases, let us consider some real-world data streams...
 				</aside>
 			</section>
 
@@ -345,16 +348,10 @@
 
 				<aside class="notes">
 					<p>
-						In JavaScript environments, such as the web browser, we have data streams such as mouse and cursor movements. Each movement of a cursor generates a set of (x,y) coordinates.
+						In JavaScript environments, such as the web browser, we have data streams such as mouse and cursor movements, scrolling, and "clicks".
 					</p>
 					<p>
-						Similarly, another data stream is scrolling.
-					</p>
-					<p>
-						Another data stream is clicks (or selecting a UI element).
-					</p>
-					<p>
-						In the web browser, on mobile devices, and in Node.js, we have access to sensor data, such as device orientation, temperature, and ambient lighting, which is being continuously recorded.
+						In the web browser, on mobile devices, and in Node.js, we have access to sensor data, such as device orientation, temperature, and ambient lighting; all data which is being continuously recorded.
 					</p>
 					<p>
 						And finally, we have monitoring data, such as logs of failed HTTP/S requests, server errors, et cetera.
@@ -376,10 +373,13 @@
 						What can real-time machine learning allow you to do?
 					</p>
 					<p>
-						We have already discussed one use case: forecasting (prediction). The naive model we formulated earlier which involved computing an average in order to forecast tomorrow's weather can be formulated as an incremental algorithm. Each day we can record the temperature, use that temperature to update our model, and, hopefully, make a better forecast for the next day.
+						We have already discussed one use case: forecasting (prediction). The naive model we formulated earlier which involved computing an average in order to forecast tomorrow's weather can be formulated as an incremental algorithm.
 					</p>
 					<p>
-						For the UI interaction data we discussed in the previous slide, such as cursor movement and scrolling, we can generate a prediction as to what resource a user will most likely need next, allowing us to create apparently faster and more responsive UIs.
+						Each day we can record the temperature, use that temperature to update our model, and make a forecast for the next day based on our updated model.
+					</p>
+					<p>
+						For the UI interaction data we discussed in the previous slide, such as cursor movement and scrolling, we can generate a prediction as to what resource a user will most likely need next, allowing us to create what would feel like a faster and more responsive UI.
 					</p>
 					<p>
 						For example, a simple (regression) task could be to track cursor movement and, based on (x,y) coordinates over time, train a model to predict which button a user will click next, causing the desired resource to be fetched before a user actually clicks the button, thus leading to a more instantaneous experience.
@@ -388,13 +388,80 @@
 						Another classic use case is anomaly detection, such as detecting a malfunctioning system or credit card fraud. In this classification task, we want to detect when a datum, or set of datums, is different than the rest.
 					</p>
 					<p>
-						The sooner you are able to classify new data as anomalous, the sooner you can fix the problem.
+						The sooner you are able to classify new data as "anomalous", the sooner you can fix a potential problem.
 					</p>
 					<p>
 						A third use case is clustering, which is the process of assigning groups.
 					</p>
 					<p>
-						As an example, we could collect device performance metrics, such as CPU utilization and memory usage, and identify different application "states", such as resource intensive, idle, et cetera. The number of states and how frequently they are occupied could be informative for resource planning and optimization.
+						As an example, we could collect device performance metrics, such as CPU utilization and memory usage, and identify different application "states", such as resource intensive, idle, et cetera.
+					</p>
+					<p>
+						The number of states and how frequently they are occupied could be informative for resource planning and optimization.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Why JavaScript?</h2>
+
+				<aside class="notes">
+					<p>
+						At this point, I may have convinced you that real-time machine learning sounds useful, but why do any of this in JavaScript? Don't other languages exist which are better suited to the task?
+					</p>
+					<p>
+						As a practitioner who has written and used machine learning algorithms in other languages, I can confidently say that JavaScript is as equally qualified as any of those other languages, such as R and Python, for machine learning tasks.
+					</p>
+					<p>
+						However, the stigma that JavaScript is <strong>not</strong> suitable for math (and, by association, machine learning) persists, so I would like to take a moment to dispel a couple of myths...
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Myths</h2>
+
+				<ul>
+					<li class="fragment">Performance</li>
+					<li class="fragment">Incompatibility</li>
+				</ul>
+
+				<aside class="notes">
+					<p>
+						The first myth is poor performance. We have run the benchmarks. You can run them yourself. JavaScript environments are just as fast as, and more often than not, faster than Python and easily faster than R.
+					</p>
+					<p>
+						Modern JavaScript environments are highly optimized and continually improving. With WebAssembly and Node.js native add-ons, achieving near-native speed in JavaScript environments is readily achievable.
+					</p>
+					<p>
+						The second myth is that JavaScript is somehow incompatible with mathematical computation.
+					</p>
+					<p>
+						The argument in support of this myth typically goes something like single-threaded, something, something, floating-point, something, something, 64-bit integers.
+					</p>
+					<p>
+						What is clear about the people making this argument is that they have not used other languages for scientific computing and machine learning.
+					</p>
+					<p>
+						People can, and, more importantly, <strong>do</strong> write robust and performant mathematical code in JavaScript.
+					</p>
+					<p>
+						Personally, I can point to stdlib and the fact that we've implemented literally thousands of mathematical functions in JavaScript and have not encountered any overwhelming issues due to the language itself.
+					</p>
+					<p>
+						Yes, some languages have syntactical features more amenable to terser code (e.g., operator overloading), but the lack of these features does not preclude math algorithms from being implemented.
+					</p>
+					<p>
+						In fact, e.g., C suffers from similar operator overloading limitations and no one who believes the "JavaScript cannot do math" myth seems to believe the same about C.
+					</p>
+					<p>
+						In short, many of those who say math cannot be done in JavaScript seem to have various preconceptions which are not grounded in reality and most likely have never written mathematical libraries.
+					</p>
+					<p>
+						The <strong>primary</strong> reason why people do not currently do mathematical computation in JavaScript is that other ecosystems already have a critical mass of libraries and frameworks for doing mathematical computation.
+					</p>
+					<p>
+						The issue is not one of technical limitations, but one of community support--a problem that myself and colleagues are working to address.
 					</p>
 				</aside>
 			</section>
