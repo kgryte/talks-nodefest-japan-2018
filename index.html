@@ -123,22 +123,31 @@
 
 				<aside class="notes">
 					<p>
-						This talk will TODO...
-					</p>
-					<p>
-						If I move too quickly, this talk is on-line with notes so you can revisit during and after this conference.
-					</p>
-					<p>
 						The talk overview is as follows...
 					</p>
 					<ul>
    						<li>
-   							First, I will TODO...
+   							First, I will introduce machine learning and define some foundational concepts.
+   						</li>
+   						<li>
+   							Next, I will motivate why you should care about machine learning and, in particular, real-time machine learning.
+   						</li>
+   						<li>
+   							Then, I will discuss machine learning as it applies to JavaScript.
+   						</li>
+   						<li>
+   							I then will walk through a few examples showcasing real-time machine learning in JavaScript.
+   						</li>
+   						<li>
+   							After which, I will offer some tips and tricks when applying real-time machine learning algorithms.
    						</li>
    						<li>
    							And finally, I will offer some conclusions and additional resources you can use to get started using JavaScript for real-time machine learning.
    						</li>
    					</ul>
+					<p>
+						If I move too quickly, this talk is on-line with notes so you can revisit during and after this conference.
+					</p>
 				</aside>
 			</section>
 
@@ -482,6 +491,121 @@
 				</aside>
 			</section>
 
+			<section class="center">
+				<h2 class="no-text-transform">Anomaly Detection</h2>
+
+				<aside class="notes">
+					<p>
+						The first example is real-time anomaly detection.
+					</p>
+					<p>
+						To help structure the example, I've prepared an interactive Observable notebook which steps through an analysis of network sensor data.
+					</p>
+					<p>
+						For the purposes of this talk, the sensor data is static; however, all the analytical components shown in the notebook are amenable to real-time analysis, with each analytical component being an incremental accumulator which accepts data as it arrives.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Clustering</h2>
+
+				<aside class="notes">
+					<p>
+						The second example is real-time clustering.
+					</p>
+					<p>
+						Similar to the previous example, to help structure the example, I've prepared an interactive Observable notebook which steps through an analysis of simulated data.
+					</p>
+					<p>
+						For the purposes of this talk, I chose to use simulated data as we have control over the data's generation and are able to know the true underlying state of the simulated system.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Regression</h2>
+
+				<aside class="notes">
+					<p>
+						The third example is real-time regression.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Classification</h2>
+
+				<aside class="notes">
+					<p>
+						The fourth example is real-time classification.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<aside class="notes">
+					(next slide)
+				</aside>
+			</section>
+
+			<section class="center">
+				<h2 class="no-text-transform">Tips and Tricks</h2>
+
+				<ul>
+					<li class="fragment">Exploratory Data Analysis</li>
+					<li class="fragment">Data Structures</li>
+					<ul>
+						<li class="fragment">ndarray</li>
+						<li class="fragment">circular buffers</li>
+						<li class="fragment">trees</li>
+					</ul>
+					<li class="fragment">Algorithms</li>
+				</ul>
+
+				<aside class="notes">
+					<p>
+						Before using real-time machine learning, <strong>always</strong>, <strong>always</strong>, <strong>always</strong> perform exploratory data analysis.
+					</p>
+					<p>
+						This means exploring your data by plotting and performing basic analyses in order to get a "feel" for your data and to test any basic assumptions (e.g., as we did when testing that the network sensor data is normally distributed).
+					</p>
+					<p>
+						While true in general, but especially for real-time machine learning, what makes algorithms performant are two things.
+					</p>
+					<p>
+						The first is using the right data structure.
+					</p>
+					<p>
+						One such data structure is n-dimensional arrays (ndarrays), which are single-segment continuous blocks of memory. These data structures allow for more efficient cache optimization.
+					</p>
+					<p>
+						Another common data structure is a circular buffer. However, in JavaScript, these need to be implemented carefully in order to avoid poor memory management.
+					</p>
+					<p>
+						Certain real-time algorithms require specialized tree data structures, such as quantile approximation.
+					</p>
+					<p>
+						The second is using the right algorithm.
+					</p>
+					<p>
+						One example where using the right algorithm is critical is quantile approximation. A naive approach would require storing all data in memory and sorting the data each time a new data arrives.
+					</p>
+					<p>
+						A better approach is use an approximate method which uses a tree data structure and an acceptable error rate.
+					</p>
+					<p>
+						In batch analysis, especially for one-off analyses, we can be okay using naive algorithms or less efficient data structures; however, in the context of real-time statistical analysis and machine learning, this is not viable.
+					</p>
+				</aside>
+			</section>
+
+			<section class="center">
+				<aside class="notes">
+					(next slide)
+				</aside>
+			</section>
+
 			<section class="center" data-transition="fade-in fade-out" data-transition-speed="default">
 				<h2 class="no-text-transform">Conclusions</h2>
 
@@ -490,17 +614,25 @@
 						&nbsp;
 					</ul>
 					<ul class="column column-8">
-						<li class="fragment">TODO</li>
+						<li class="fragment">JavaScript</li>
+						<li class="fragment">Data Structures</li>
+						<li class="fragment">Algorithms</li>
 					</ul>
 				</div>
 
 				<aside class="notes">
 					<p>
-						There are TODO: X points I want you to remember from this talk...
+						There are 3 points I want you to remember from this talk...
 					</p>
 					<ol>
 						<li>
-							First, TODO
+							First, JavaScript is perfectly suitable for mathematical computation and machine learning. And not only is machine learning in JavaScript possible, but doing so introduces new types of machine learning applications, which offer better data privacy, better performance, and better resource utilization.
+						</li>
+						<li>
+							Second, real-time machine learning algorithms require using the right data structure, regardless of what language they are implemented in.
+						</li>
+						<li>
+							Third, real-time machine learning algorithms require using the right algorithm.
 						</li>
 					</ol>
 				</aside>
