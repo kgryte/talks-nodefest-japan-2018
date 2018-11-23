@@ -303,16 +303,13 @@
 						For the purposes of this talk, I define real-time machine learning as the subset of machine learning algorithms which support incremental training. I.e., as a new datum arrives, I can update my model incrementally. Meaning, in order to generate a new prediction, I don't need to <strong>store</strong> and analyze <strong>all</strong> past prior events.
 					</p>
 					<p>
-						Commonly, perhaps due to marketing "speak", you'll see machine learning approaches and technologies labeled as "real-time". These approaches are more accurately described as "near real-time", in which, due to distributed computing strategies and/or parallelization, they allow for re-training and analysis to be done more quickly than traditional batch analysis.
+						Commonly, perhaps due to marketing departments, you'll see machine learning approaches and technologies labeled as "real-time". These approaches are more accurately described as "near real-time", in which, due to distributed computing strategies and/or parallelization, they allow for re-training and analysis to be done more quickly than traditional batch analysis.
 					</p>
 					<p>
 						My definition excludes these near real-time approaches.
 					</p>
 					<p>
-						This talk's focus is how we can develop, and use, incremental training machine learning methods in JavaScript.
-					</p>
-					<p>
-						Why this limited definition? Because I find incremental machine learning algorithms particularly compelling in JavaScript.
+						Why this limited definition? Because I find incremental machine learning algorithms particularly compelling, especially when used in JavaScript environments, such as web browsers and Node.js.
 					</p>
 				</aside>
 			</section>
@@ -330,10 +327,16 @@
 
 				<aside class="notes">
 					<p>
-						First, why are incremental algorithms exciting?
+						Why are incremental algorithms exciting?
 					</p>
 					<p>
-						Incremental machine learning algorithms allow for model training and prediction to happen concurrently. I don't need to separate these two aspects: training and prediction.
+						Incremental machine learning algorithms allow for model <strong>training</strong> and <strong>prediction</strong>/<strong>classification</strong> to happen concurrently. I don't need to decouple these two aspects: training and prediction.
+					</p>
+					<p>
+						Meaning, in practice, for particular types of problems, I do not need dedicated infrastructure or processes/threads for training and separate infrastructure for prediction.
+					</p>
+					<p>
+						Often, incremental algorithms have low memory footprints, making them suitable for IoT and other resource limited devices.
 					</p>
 					<p>
 						Why is this important? For the following reasons...
