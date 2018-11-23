@@ -406,10 +406,10 @@
 						For the UI interaction data we discussed in the previous slide, such as cursor movement and scrolling, we can generate a prediction as to what resource a user will most likely need next, allowing us to create what would feel like a faster and more responsive UI.
 					</p>
 					<p>
-						For example, a simple task could be to track cursor movement and, based on (x,y) coordinates over time, train a model to predict which button a user will click next, causing the desired resource to be fetched before a user actually clicks the button, thus leading to a more instantaneous experience.
+						One example I have seen in a real-world application is tracking cursor movement and, based on (x,y) coordinates over time, training a model to predict which button a user will click next, causing the desired resource to be fetched before a user actually clicks the button, and thereby leading to a more instantaneous experience.
 					</p>
 					<p>
-						Another classic use case is anomaly detection, such as detecting a malfunctioning system or credit card fraud. In this classification task, we want to detect when a datum, or set of datums, is different than the rest.
+						Another classic use case is anomaly detection, such as detecting a malfunctioning system or fraudulent activity. In this classification task, we want to detect when a datum, or set of datums, is different than the rest.
 					</p>
 					<p>
 						The sooner you are able to classify new data as "anomalous", the sooner you can fix a potential problem.
@@ -421,7 +421,7 @@
 						As an example, we could collect device performance metrics, such as CPU utilization and memory usage, and identify different application "states", such as resource intensive, idle, et cetera.
 					</p>
 					<p>
-						The number of states and how frequently they are occupied could be informative for resource planning and optimization.
+						The number of states and how frequently they are occupied could be informative for on-device resource planning and optimization.
 					</p>
 				</aside>
 			</section>
@@ -452,10 +452,13 @@
 
 				<aside class="notes">
 					<p>
-						The first myth is poor performance. We have run the benchmarks. You can run them yourself. JavaScript environments are just as fast as, and more often than not, faster than Python and easily faster than R.
+						The first myth is poor performance. As part of our work on stdlib, we have run the benchmarks. You can run them yourself. They are publicly available.
 					</p>
 					<p>
-						Modern JavaScript environments are highly optimized and continually improving. With WebAssembly and Node.js native add-ons, achieving near-native speed in JavaScript environments is readily achievable.
+						JavaScript environments are just as fast as, and more often than not, faster than, Python and easily faster than R.
+					</p>
+					<p>
+						Modern JavaScript environments are highly optimized and continually improving. With WebAssembly and Node.js native add-ons, reaching near-native speed in JavaScript environments is readily achievable.
 					</p>
 					<p>
 						The second myth is that JavaScript is somehow incompatible with mathematical computation.
@@ -464,7 +467,7 @@
 						The argument in support of this myth typically goes something like single-threaded, something, something, floating-point, something, something, 64-bit integers.
 					</p>
 					<p>
-						What is clear about the people making this argument is that they have not used other languages for scientific computing and machine learning.
+						What is clear about the people making this argument is that they have not used other languages for scientific computing and machine learning, because many of the arguments used against JavaScript apply equally to other languages used for mathematical computation.
 					</p>
 					<p>
 						People can, and, more importantly, <strong>do</strong> write robust and performant mathematical code in JavaScript.
@@ -473,7 +476,7 @@
 						Personally, I can point to stdlib and the fact that we've implemented literally thousands of mathematical functions in JavaScript and have not encountered any overwhelming issues due to the language itself.
 					</p>
 					<p>
-						Yes, some languages have syntactical features more amenable to terser code (e.g., operator overloading), but the lack of these features does not preclude math algorithms from being implemented.
+						This said, yes, some languages have syntactical features more amenable to terser code (e.g., operator overloading), but the lack of these features does not preclude math algorithms from being implemented.
 					</p>
 					<p>
 						In fact, e.g., C suffers from similar operator overloading limitations and no one who believes the "JavaScript cannot do math" myth seems to believe the same about C.
@@ -485,7 +488,7 @@
 						The <strong>primary</strong> reason why people do not currently do mathematical computation in JavaScript is that other ecosystems already have a critical mass of libraries and frameworks for doing mathematical computation.
 					</p>
 					<p>
-						The issue is not one of technical limitations, but one of community support--a problem that myself and colleagues are working to address.
+						The issue is not one of technical limitations, but one of community support--a problem that myself and colleagues are working to address with stdlib.
 					</p>
 				</aside>
 			</section>
