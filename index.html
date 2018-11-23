@@ -136,7 +136,7 @@
    							Then, I will discuss machine learning as it applies to JavaScript.
    						</li>
    						<li>
-   							I then will walk through a few examples showcasing real-time machine learning in JavaScript.
+   							I will then walk through a few examples showcasing real-time machine learning in JavaScript.
    						</li>
    						<li>
    							After which, I will offer some tips and tricks when applying real-time machine learning algorithms.
@@ -382,7 +382,7 @@
 						What can real-time machine learning allow you to do?
 					</p>
 					<p>
-						We have already discussed one use case: forecasting (prediction). The naive model we formulated earlier which involved computing an average in order to forecast tomorrow's weather can be formulated as an incremental algorithm.
+						We have already discussed one use case: forecasting (prediction). The naive model we formulated earlier which involved computing an average in order to forecast tomorrow's temperature can be formulated as an incremental algorithm.
 					</p>
 					<p>
 						Each day we can record the temperature, use that temperature to update our model, and make a forecast for the next day based on our updated model.
@@ -391,7 +391,7 @@
 						For the UI interaction data we discussed in the previous slide, such as cursor movement and scrolling, we can generate a prediction as to what resource a user will most likely need next, allowing us to create what would feel like a faster and more responsive UI.
 					</p>
 					<p>
-						For example, a simple (regression) task could be to track cursor movement and, based on (x,y) coordinates over time, train a model to predict which button a user will click next, causing the desired resource to be fetched before a user actually clicks the button, thus leading to a more instantaneous experience.
+						For example, a simple task could be to track cursor movement and, based on (x,y) coordinates over time, train a model to predict which button a user will click next, causing the desired resource to be fetched before a user actually clicks the button, thus leading to a more instantaneous experience.
 					</p>
 					<p>
 						Another classic use case is anomaly detection, such as detecting a malfunctioning system or credit card fraud. In this classification task, we want to detect when a datum, or set of datums, is different than the rest.
@@ -515,7 +515,7 @@
 						The second example is real-time clustering.
 					</p>
 					<p>
-						Similar to the previous example, to help structure the example, I've prepared an interactive Observable notebook which steps through an analysis of simulated data.
+						Similar to the previous example, I've prepared an interactive Observable notebook which steps through an analysis of simulated data.
 					</p>
 					<p>
 						For the purposes of this talk, I chose to use simulated data as we have control over the data's generation and are able to know the true underlying state of the simulated system.
@@ -577,10 +577,10 @@
 						The first is using the right data structure.
 					</p>
 					<p>
-						One such data structure is n-dimensional arrays (ndarrays), which are single-segment continuous blocks of memory. These data structures allow for more efficient cache optimization.
+						One such data structure is n-dimensional arrays (ndarrays), which are single-segment contiguous blocks of memory. These data structures allow for more efficient cache optimization.
 					</p>
 					<p>
-						Another common data structure is a circular buffer. However, in JavaScript, these need to be implemented carefully in order to avoid poor memory management.
+						Another common data structure is a circular buffer. While the textbook definition is simple, these need to be implemented carefully in order to avoid poor memory management, especially when implementing them in JavaScript.
 					</p>
 					<p>
 						Certain real-time algorithms require specialized tree data structures, such as quantile approximation.
@@ -595,7 +595,7 @@
 						A better approach is use an approximate method which uses a tree data structure and an acceptable error rate.
 					</p>
 					<p>
-						In batch analysis, especially for one-off analyses, we can be okay using naive algorithms or less efficient data structures; however, in the context of real-time statistical analysis and machine learning, this is not viable.
+						In batch analysis, especially for one-off analyses, we can be okay using naive algorithms or less efficient data structures; however, in the context of real-time statistical analysis and machine learning within web and Node.js server applications, this is not viable.
 					</p>
 				</aside>
 			</section>
